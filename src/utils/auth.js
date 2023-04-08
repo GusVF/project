@@ -12,6 +12,13 @@ const generateToken = (payload) => {
   return token;
 };
 
+const validateToken = (token) => {
+  if (!token) return 'Missing token';
+  const validToken = jwt.verify(token, JWT_SECRET);
+  return validToken;
+};
+
 module.exports = {
   generateToken,
+  validateToken,
 };
