@@ -3,6 +3,7 @@ const UserController = require('../controllers/UserController');
 const { validateName } = require('../middlewares/NameMiddleware');
 const { validatePassword } = require('../middlewares/PasswordMiddleware');
 const { validateEmail } = require('../middlewares/EmailMiddleware');
+// const { authToken } = require('../middlewares/AuthMiddleware');
 
 const UserRouter = express.Router();
 
@@ -13,5 +14,7 @@ UserRouter.post(
  validateEmail,
   UserController.newUser,
   );
+
+UserRouter.get('/', UserController.getAllUsers);
 
 module.exports = UserRouter;

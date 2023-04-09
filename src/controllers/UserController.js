@@ -17,6 +17,19 @@ const newUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  const { authorization } = req.headers;
+  try {
+  const allUsers = await UserService.getAllUsers(authorization);
+  if (!allUsers) return res.status(401).json({ message: 'Expired or invalid token' });
+  if (allUsers.message) return res.status(401).json(allUsers);
+  return res.status(200).json(allUsers);
+  } catch (error) {
+    return res.status(500).json({ message: 'Internal error' });
+  }
+};
+
 module.exports = {
   newUser,
+  getAllUsers,
 };

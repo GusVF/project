@@ -8,14 +8,14 @@ const configJWT = {
 
 const generateToken = (payload) => {
   const token = jwt.sign(payload, JWT_SECRET, configJWT);
-  console.log(token);
+  // console.log(token);
   return token;
 };
 
 const validateToken = (token) => {
   if (!token) return 'Missing token';
-  const validToken = jwt.verify(token, JWT_SECRET);
-  return validToken;
+  jwt.verify(token, JWT_SECRET);
+  return token;
 };
 
 module.exports = {
