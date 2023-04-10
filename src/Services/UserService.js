@@ -31,7 +31,7 @@ const getAllUsers = async (token) => {
      const userList = allUsers.map(({ dataValues }) => dataValues);
     return userList;
   } catch (error) {
-    console.log(error.message, 'error on service');
+    console.log(error.message, 'error on UserService');
   }
 };
 
@@ -41,7 +41,7 @@ const getUserById = async (id, token) => {
    validateToken(token);
   return userId;
 };
- 
+
 module.exports = {
   newUser,
   getAllUsers,

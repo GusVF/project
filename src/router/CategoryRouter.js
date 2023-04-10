@@ -9,5 +9,10 @@ CategoryRouter.post(
   authUserToken,
  CategoryController.validateCategoryFields,
  );
+CategoryRouter.get(
+  '/',
+  authUserToken,
+ CategoryController.getAllCategories,
+ );
 
 module.exports = CategoryRouter;

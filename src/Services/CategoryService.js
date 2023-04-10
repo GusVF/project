@@ -12,6 +12,18 @@ const validateCategoryFields = async (token, name) => {
     }
 };
 
+const getAllCategories = async (token) => {
+  if (!token) return ({ message: 'Token not found' });
+  try {
+    const allCategories = await Category.findAll();
+    validateToken(token);
+    return allCategories;
+  } catch (error) {
+    console.log(error.message, 'On CategoryService');
+  }
+};
+
 module.exports = {
   validateCategoryFields,
+  getAllCategories,
 };

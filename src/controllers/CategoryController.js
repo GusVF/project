@@ -16,6 +16,21 @@ const validateCategoryFields = async (req, res) => {
   }
 };
 
+const getAllCategories = async (req, res) => {
+  const { authorization } = req.headers;
+  try {
+    const allCategories = await CategoryService.getAllCategories(authorization);
+    console.log(allCategories);
+    if (!allCategories) return res.status(401).json({ message: 'Expired or invalid token' });
+    if (allCategories.message) return res.status(401).json(allCategories);
+    return res.status(200).json(allCategories);
+  } catch (error) {
+    console.log(error.message, 'Error on Category Controller');
+    return res.status(500).json({ message: 'Internal error' });
+  }
+};
+
 module.exports = {
   validateCategoryFields,
+  getAllCategories,
 };
