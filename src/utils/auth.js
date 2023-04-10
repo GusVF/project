@@ -14,8 +14,8 @@ const generateToken = (payload) => {
 
 const validateToken = (token) => {
   if (!token) return 'Missing token';
-  jwt.verify(token, JWT_SECRET);
-  return token;
+   const validToken = jwt.verify(token, JWT_SECRET);
+  return validToken;
 };
 
 module.exports = {

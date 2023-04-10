@@ -34,8 +34,16 @@ const getAllUsers = async (token) => {
     console.log(error.message, 'error on service');
   }
 };
+
+const getUserById = async (id, token) => {
+  if (!token) return ({ message: 'Token not found' });
+  const userId = await User.findOne({ where: { id }, attributes: { exclude: 'password' } });
+   validateToken(token);
+  return userId;
+};
  
 module.exports = {
   newUser,
   getAllUsers,
+  getUserById,
 };
