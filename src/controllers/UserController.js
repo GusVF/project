@@ -34,7 +34,7 @@ const getUserById = async (req, res) => {
   const { authorization } = req.headers;
   try {
   const userId = await UserService.getUserById(id, authorization);
-  // if (userId.message) return res.status(401).json(userId);
+
   if (!userId) return res.status(404).json({ message: 'User does not exist' });
   if (!authorization) return res.status(401).json({ message: 'Token not found' });
   return res.status(200).json(userId.dataValues);
