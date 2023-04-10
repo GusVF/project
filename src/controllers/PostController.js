@@ -15,6 +15,11 @@ const newPost = async (req, res) => {
   }
 };
 
+const getAllPostsAndUsers = async () => {
+  
+};
+
 module.exports = {
   newPost,
+  getAllPostsAndUsers,
 };

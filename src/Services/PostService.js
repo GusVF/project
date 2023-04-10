@@ -36,6 +36,11 @@ const newPost = async (token, title, content, categoryIds) => {
   }
 };
 
+const getAllPostsAndUsers = async () => {
+  
+};
+
 module.exports = {
   newPost,
+  getAllPostsAndUsers,
 };

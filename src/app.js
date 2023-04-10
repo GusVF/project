@@ -14,8 +14,8 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
-app.use('/post', PostRouter);
 app.use('/categories', CategoryRouter);
+app.use('/post', PostRouter);
 app.use('/login', LoginRouter);
 app.use('/user', UserRouter);
 app.use('/:id', UserRouter);
