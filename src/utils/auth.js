@@ -8,7 +8,6 @@ const configJWT = {
 
 const generateToken = (payload) => {
   const token = jwt.sign(payload, JWT_SECRET, configJWT);
-  // console.log(token);
   return token;
 };
 

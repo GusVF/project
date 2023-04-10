@@ -6,12 +6,24 @@ module.exports = (sequelizer, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
+        model: 'blog_posts',
+        key: 'id',
+        references: {
+        onDelete: 'CASCADE',
+        primaryKey: true,
       },
+    },
       categoryId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
-      },
+        references: {
+          model: 'categories',
+          key: 'id',
+          },
+          onDelete: 'CASCADE',
+          primaryKey: true,
+        },
     },
     {
       timestamps: false,

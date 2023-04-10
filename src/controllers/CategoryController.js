@@ -5,7 +5,7 @@ const validateCategoryFields = async (req, res) => {
   const { authorization } = req.headers;
   try {
     const categoryFields = await CategoryService.validateCategoryFields(authorization, name);
-    if (!authorization) return res.status(401).json(categoryFields);
+    if (authorization.message) return res.status(401).json(categoryFields);
 
     if (!name) return res.status(400).json({ message: '"name" is required' });
 
