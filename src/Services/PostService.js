@@ -61,7 +61,6 @@ const getPostsById = async (token, id) => {
     ],
     });
     validateToken(token);
-    console.log(allUsersPosts);
     return allUsersPosts;
   } catch (error) {
     console.log(error.message);

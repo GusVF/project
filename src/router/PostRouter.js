@@ -1,12 +1,12 @@
 const express = require('express');
-const PostController = require('../controllers/PostController');
-const { authUserToken } = require('../middlewares/AuthMiddleware');
-const { validatePostFields } = require('../middlewares/PostMiddleware');
+// const PostController = require('../controllers/PostController');
+// const { authUserToken } = require('../middlewares/AuthMiddleware');
+// const { validatePostFields } = require('../middlewares/PostMiddleware');
 
 const PostRouter = express.Router();
 
-PostRouter.post('/', authUserToken, validatePostFields, PostController.newPost);
-PostRouter.get('/', authUserToken, PostController.getAllPostsAndUsers);
+// PostRouter.post('/', authUserToken, validatePostFields, PostController.newPost);
+// PostRouter.get('/', authUserToken, PostController.getAllPostsAndUsers);
 
-PostRouter.get('/:id', authUserToken, PostController.getPostsById);
+// PostRouter.get('/:id', authUserToken, PostController.getPostsById);
 module.exports = PostRouter;
