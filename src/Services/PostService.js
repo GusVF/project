@@ -51,6 +51,7 @@ const getAllPostsAndUsers = async (token) => {
     console.log(error.message);
   }
 };
+
 const getPostsById = async (token, id) => {
   try {
     const allUsersPosts = await BlogPost.findOne({
@@ -67,8 +68,24 @@ const getPostsById = async (token, id) => {
   }
 };
 
+const updatePost = async (token, id, title, content) => {
+  console.log(token);
+   try {
+    if (!token) return ({ message: 'Token not found' });
+    const post = await BlogPost.findByPk(id);
+    if (!post) return ({ message: 'Post not found' });
+    await post.update({ title, content });
+
+    validateToken(token);
+    return post;
+   } catch (error) {
+    console.log(error.message);
+   }
+};
+
 module.exports = {
   newPost,
   getAllPostsAndUsers,
   getPostsById,
+  updatePost,
 };

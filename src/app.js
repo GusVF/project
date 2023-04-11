@@ -5,7 +5,11 @@ const { validateEmail } = require('./middlewares/EmailMiddleware');
 const { validateName } = require('./middlewares/NameMiddleware');
 const { validatePassword } = require('./middlewares/PasswordMiddleware');
 const { signin } = require('./controllers/Login');
-const { newPost, getAllPostsAndUsers, getPostsById } = require('./controllers/PostController');
+const { newPost,
+  getAllPostsAndUsers,
+  getPostsById,
+  updatePost,
+} = require('./controllers/PostController');
 const { getAllUsers, newUser, getUserById } = require('./controllers/UserController'); 
 const { getAllCategories, validateCategoryFields } = require('./controllers/CategoryController'); 
 // ...
@@ -20,6 +24,8 @@ app.get('/', (_request, response) => {
 app.use(express.json());
 
 app.post('/login', signin);
+
+app.put('post/:id', authUserToken, updatePost);
 
 app.post('/post', authUserToken, validatePostFields, newPost);
 
