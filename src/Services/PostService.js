@@ -46,6 +46,21 @@ const getAllPostsAndUsers = async (token) => {
     ],
     });
     validateToken(token);
+    return allUsersPosts;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+const getPostsById = async (token, id) => {
+  try {
+    const allUsersPosts = await BlogPost.findOne({
+      where: { id },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: 'password' } },
+         { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+    });
+    validateToken(token);
     console.log(allUsersPosts);
     return allUsersPosts;
   } catch (error) {
@@ -56,4 +71,5 @@ const getAllPostsAndUsers = async (token) => {
 module.exports = {
   newPost,
   getAllPostsAndUsers,
+  getPostsById,
 };
