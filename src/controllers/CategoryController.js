@@ -20,7 +20,7 @@ const getAllCategories = async (req, res) => {
   const { authorization } = req.headers;
   try {
     const allCategories = await CategoryService.getAllCategories(authorization);
-    console.log(allCategories);
+
     if (!authorization) return res.status(401).json({ message: 'Expired or invalid token' });
     if (allCategories.message) return res.status(401).json(allCategories);
     return res.status(200).json(allCategories);

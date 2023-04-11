@@ -15,8 +15,16 @@ const newPost = async (req, res) => {
   }
 };
 
-const getAllPostsAndUsers = async () => {
-  
+const getAllPostsAndUsers = async (req, res) => {
+  const { authorization } = req.headers;
+  try {
+    const allUsersPosts = await PostService.getAllPostsAndUsers(authorization);
+    if (!authorization) return res.status(401).json({ message: 'No Token found' });
+    return res.status(200).json(allUsersPosts);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Internal error' });
+  }
 };
 
 module.exports = {

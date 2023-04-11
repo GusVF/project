@@ -1,4 +1,4 @@
-const { BlogPost, Category, PostCategory } = require('../models');
+const { BlogPost, Category, PostCategory, User } = require('../models');
 const { validateToken } = require('../utils/auth');
 
 const getCategoryById = async (id) => {
@@ -36,8 +36,21 @@ const newPost = async (token, title, content, categoryIds) => {
   }
 };
 
-const getAllPostsAndUsers = async () => {
-  
+const getAllPostsAndUsers = async (token) => {
+  try {
+    if (!token) return ({ message: 'Token not found' });
+    const allUsersPosts = await BlogPost.findAll({
+      include: [
+        { model: User, as: 'user', attributes: { exclude: 'password' } },
+         { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+    });
+    validateToken(token);
+    console.log(allUsersPosts);
+    return allUsersPosts;
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 module.exports = {
