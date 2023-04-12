@@ -1,4 +1,5 @@
 const UserService = require('../Services/UserService');
+// const { authUserToken } = require('../middlewares/AuthMiddleware');
 
 const newUser = async (req, res) => {
   try {
@@ -44,8 +45,22 @@ const getUserById = async (req, res) => {
   }
 };
 
+const userDeleteSelf = async (req, res) => {
+  const { authorization } = req.headers;
+  try {
+    const user = await UserService.userDeleteSelf(authorization);
+    if (!user) return res.status(401).json({ message: 'Expired or invalid token' });
+    if (user.message) return res.status(401).json(user);
+    return res.status(204).send();
+  } catch (error) {
+    console.log(error.message);
+      return res.status(500).json({ message: 'Internal error' });
+  }
+};
+
 module.exports = {
   newUser,
   getAllUsers,
   getUserById,
+  userDeleteSelf,
 };

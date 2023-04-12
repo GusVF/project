@@ -94,14 +94,12 @@ const updatePost = async (token, id, title, content) => {
 
 const deletePost = async (token, id) => {
   try {
-    if (!token) return ({ message: 'Token not found on Service' });
     const post = await BlogPost.findByPk(id, {
       include: [
         { model: User, as: 'user', attributes: { exclude: 'password' } },
          { model: Category, as: 'categories', through: { attributes: [] } },
     ],
     });
-    // if (!post) return ({ message: 'Post not found' });
     await post.destroy({ where: { id } });
     const validToken = validateToken(token);
     if (post.dataValues.userId !== validToken.id) {

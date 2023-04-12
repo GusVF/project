@@ -42,8 +42,24 @@ const getUserById = async (id, token) => {
   return userId;
 };
 
+const userDeleteSelf = async (token) => {
+  try {
+    const decodedToken = validateToken(token);
+    const user = await User.findByPk(decodedToken.id);
+    if (!token) {
+      return { message: 'Token not found' };
+    }
+
+    const deletedUser = await user.destroy();
+    return deletedUser;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   newUser,
   getAllUsers,
   getUserById,
+  userDeleteSelf,
 };

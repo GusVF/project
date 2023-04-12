@@ -11,7 +11,12 @@ const { newPost,
   updatePost,
   deletePost,
 } = require('./controllers/PostController');
-const { getAllUsers, newUser, getUserById } = require('./controllers/UserController'); 
+
+const { getAllUsers,
+  newUser,
+  getUserById,
+  userDeleteSelf } = require('./controllers/UserController'); 
+
 const { getAllCategories, validateCategoryFields } = require('./controllers/CategoryController'); 
 // ...
 
@@ -35,6 +40,8 @@ app.get('/post/', authUserToken, getAllPostsAndUsers);
 app.get('/post/:id', authUserToken, getPostsById);
 
 app.delete('/post/:id', authUserToken, deletePost);
+
+app.delete('/user/me', userDeleteSelf);
 
 app.get('/user', getAllUsers);
 
