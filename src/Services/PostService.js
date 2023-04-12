@@ -78,12 +78,14 @@ const updatePost = async (token, id, title, content) => {
          { model: Category, as: 'categories', through: { attributes: [] } },
     ],
     });
-    // console.log(post.user.dataValues.id);
+    
     if (!post) return ({ message: 'Post not found' });
     await post.update({ title, content });
 
-    validateToken(token);
-    console.log(token);
+    const validToken = validateToken(token);
+    if (post.dataValues.userId !== validToken.id) {
+      return ({ message: 'Unauthorized user' });
+    }
     return post;
    } catch (error) {
     console.log(error.message);
