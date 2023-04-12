@@ -1,4 +1,5 @@
 const { BlogPost, Category, PostCategory, User } = require('../models');
+// const UserService = require('./UserService');
 const { validateToken } = require('../utils/auth');
 
 const getCategoryById = async (id) => {
@@ -69,14 +70,20 @@ const getPostsById = async (token, id) => {
 };
 
 const updatePost = async (token, id, title, content) => {
-  console.log(token);
    try {
     if (!token) return ({ message: 'Token not found' });
-    const post = await BlogPost.findByPk(id);
+    const post = await BlogPost.findByPk(id, {
+      include: [
+        { model: User, as: 'user', attributes: { exclude: 'password' } },
+         { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+    });
+    // console.log(post.user.dataValues.id);
     if (!post) return ({ message: 'Post not found' });
     await post.update({ title, content });
 
     validateToken(token);
+    console.log(token);
     return post;
    } catch (error) {
     console.log(error.message);

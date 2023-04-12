@@ -46,6 +46,8 @@ const updatePost = async (req, res) => {
   const { title, content } = req.body;
   try {
     const post = await PostService.updatePost(authorization, id, title, content);
+    const dataAuth = post;
+    console.log(dataAuth);
     return res.status(200).json(post);
   } catch (error) {
     console.log(error.message);

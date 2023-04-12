@@ -1,6 +1,6 @@
 const express = require('express');
-const { authUserToken } = require('./middlewares/AuthMiddleware');
-const { validatePostFields } = require('./middlewares/PostMiddleware');
+const { authUserToken, authUserPostToken } = require('./middlewares/AuthMiddleware');
+const { validatePostFields, validatePutFields } = require('./middlewares/PostMiddleware');
 const { validateEmail } = require('./middlewares/EmailMiddleware');
 const { validateName } = require('./middlewares/NameMiddleware');
 const { validatePassword } = require('./middlewares/PasswordMiddleware');
@@ -25,7 +25,7 @@ app.use(express.json());
 
 app.post('/login', signin);
 
-app.put('post/:id', authUserToken, updatePost);
+app.put('/post/:id', authUserPostToken, validatePutFields, updatePost);
 
 app.post('/post', authUserToken, validatePostFields, newPost);
 
