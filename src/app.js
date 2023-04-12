@@ -10,6 +10,7 @@ const { newPost,
   getPostsById,
   updatePost,
   deletePost,
+  searchPosts,
 } = require('./controllers/PostController');
 
 const { getAllUsers,
@@ -34,6 +35,8 @@ app.post('/login', signin);
 app.put('/post/:id', authUserToken, validatePutFields, updatePost);
 
 app.post('/post', authUserToken, validatePostFields, newPost);
+
+app.get('/post/search', authUserToken, searchPosts);
 
 app.get('/post/', authUserToken, getAllPostsAndUsers);
 
