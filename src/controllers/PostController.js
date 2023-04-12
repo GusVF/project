@@ -56,9 +56,28 @@ const updatePost = async (req, res) => {
   }
 };
 
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const { authorization } = req.headers;
+  try {
+    const post = await PostService.deletePost(authorization, id);
+    if (!post) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+    if (post.message) {
+      return res.status(401).json(post);
+    } 
+    return res.status(204).send();
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Interanl error.' });
+  }
+};
+
 module.exports = {
   newPost,
   getAllPostsAndUsers,
   getPostsById,
   updatePost,
+  deletePost,
 };

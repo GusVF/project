@@ -1,5 +1,5 @@
 const express = require('express');
-const { authUserToken, authUserPostToken } = require('./middlewares/AuthMiddleware');
+const { authUserToken } = require('./middlewares/AuthMiddleware');
 const { validatePostFields, validatePutFields } = require('./middlewares/PostMiddleware');
 const { validateEmail } = require('./middlewares/EmailMiddleware');
 const { validateName } = require('./middlewares/NameMiddleware');
@@ -9,6 +9,7 @@ const { newPost,
   getAllPostsAndUsers,
   getPostsById,
   updatePost,
+  deletePost,
 } = require('./controllers/PostController');
 const { getAllUsers, newUser, getUserById } = require('./controllers/UserController'); 
 const { getAllCategories, validateCategoryFields } = require('./controllers/CategoryController'); 
@@ -25,13 +26,15 @@ app.use(express.json());
 
 app.post('/login', signin);
 
-app.put('/post/:id', authUserPostToken, validatePutFields, updatePost);
+app.put('/post/:id', authUserToken, validatePutFields, updatePost);
 
 app.post('/post', authUserToken, validatePostFields, newPost);
 
 app.get('/post/', authUserToken, getAllPostsAndUsers);
 
 app.get('/post/:id', authUserToken, getPostsById);
+
+app.delete('/post/:id', authUserToken, deletePost);
 
 app.get('/user', getAllUsers);
 
